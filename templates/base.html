@@ -8,7 +8,7 @@
 
     <!--Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!--materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
 
@@ -19,19 +19,16 @@
 </head>
 
 <body>
+    <header></header>
 
-    <header>
+    {% if messages %}
+    <div class="msg-container"></div>
+    {% endif %}
 
-    </header>
+    {% block content %}
+    {% endblock %}
 
-
-    <main>
-
-    </main>
-
-    <footer>
-
-    </footer>
+    <footer></footer>
 </body>
 
 </html>
