@@ -12,11 +12,12 @@
     border-radius: 10%;
 }
 
-nav div ul li a {
+.navbar .navbar-collapse .navbar-nav .nav-item .nav-link {
     color: #BF3E0F;
+    font-size: larger;
 }
 
-nav div ul li a:hover {
+.navbar .navbar-collapse .navbar-nav .nav-item .nav-link:hover {
     color: #034959;
 }
 
