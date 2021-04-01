@@ -9,9 +9,8 @@ class UserAccount(models.Model):
     The main user model containing information for all user types
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_names = models.CharField(max_length=100, null=False, blank=False)
-    last_name = models.CharField(max_length=100, null=False, blank=False)
-    email = models.EmailField(max_length=254, null=False, blank=False)
+    first_names = models.CharField(max_length=100, null=True, blank=True)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.user.username
