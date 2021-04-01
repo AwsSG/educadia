@@ -46,6 +46,11 @@ footer {
     text-align: center;
 }
 
+.allauth-form form ul[class=errorlist] {
+    margin-left: -40px;
+    list-style-position: inside;
+}
+
 .allauth-form form input:not(#id_remember) {
     border: solid 2px #034959;
     border-radius: .25rem;
