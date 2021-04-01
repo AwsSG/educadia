@@ -6,6 +6,18 @@
 #034959 
 */
 
+.main-color-1 {
+    color: #BF3E0F;
+}
+
+.main-color-1-hover:hover {
+    color: #034959;
+}
+
+.main-color-2 {
+    color: #034959;
+}
+
 /* ----------- base template styling */
 
 .rounded {
@@ -25,4 +37,43 @@ footer {
     background-color: #025159;
     color: #F2F2F2;
     padding-top: 25px;
+}
+
+/* ----------- allauth templates styling */
+
+.allauth-form {
+    margin-top: 26px;
+    text-align: center;
+}
+
+.allauth-form form input:not(#id_remember) {
+    border: solid 2px #034959;
+    border-radius: .25rem;
+    width: 320px;
+}
+
+.allauth-form form label:not([for='id_remember']),
+.extra-allauth-menu {
+    display: none;
+}
+
+#id_remember {
+    margin-left: 10px;
+}
+
+.allauth-form form button {
+    cursor: pointer;
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+    color: #F2F2F2;
+    background-color: #034959;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
 }
