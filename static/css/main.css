@@ -61,7 +61,8 @@ footer {
     margin-left: 10px;
 }
 
-.allauth-form form button {
+.allauth-form form button,
+.allauth-form form input[type="submit"] {
     cursor: pointer;
     padding: .5rem 1rem;
     font-size: 1.25rem;
@@ -75,5 +76,6 @@ footer {
     vertical-align: middle;
     border: 1px solid transparent;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-bottom: 26px;
 
 }
