@@ -18,6 +18,14 @@
     color: #034959;
 }
 
+.main-color-1-bg {
+    background-color: #BF3E0F;
+}
+
+.main-color-2-bg {
+    background-color: #034959;
+}
+
 /* ----------- base template styling */
 
 .rounded {
@@ -83,4 +91,14 @@ footer {
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     margin-bottom: 26px;
 
+}
+
+/* ----------- my account Form styling */
+
+.form-control:focus {
+  box-shadow: inset 0 1px 1px rgba(2, 81, 89, 0.075), 0 0 8px rgba(3, 73, 89, 0.6);
+}
+
+.form-row .form-group button {
+    margin-top: 30px;
 }
