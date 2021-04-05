@@ -11,6 +11,7 @@ class UserAccount(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_names = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
+    user_type = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.user.username
