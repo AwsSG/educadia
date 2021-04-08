@@ -3,7 +3,11 @@
 <div class="container">
   <div class="row">
     <div class="col">
+      {% if account.first_names != None %}
       <h3 class="mb-3">Your account details are below</h3>
+      {% else %}
+      <h3 class="mb-3">Please fill in your details</h3>
+      {% endif %}
       <form method="POST" action="{% url 'myaccount' %}">
         <div class="col-md-6">
           {% csrf_token %}
@@ -20,7 +24,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col">join a class</div>
+    <div class="col">
+      {{ account.first_names }}<br />
+      join a class
+    </div>
     <div class="col">my current classes</div>
   </div>
 </div>
