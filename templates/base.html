@@ -82,7 +82,11 @@
     </header>
 
     {% if messages %}
-    <div class="msg-container"></div>
+    <div class="msg-container">
+        {% for message in messages %}
+            {% include 'includes/toasts/toast_success.html' %}
+        {% endfor %}
+    </div>
     {% endif %}
     <!-- main contents -->
     <main>{% block content %} {% endblock %}</main>
@@ -107,6 +111,10 @@
       integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
       crossorigin="anonymous"
     ></script>
+    <!-- toast initialization -->
+    <script type="text/javascript">
+        $('.toast').toast('show');
+    </script>
 
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

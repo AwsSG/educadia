@@ -95,6 +95,15 @@ footer {
 
 /* ----------- my account Form styling */
 
+.msg-container {
+  position: fixed;
+  top: 60px;
+  right: 60px;
+  z-index: 9999;
+}
+
+/* ----------- my account Form styling */
+
 .form-control:focus {
   box-shadow: inset 0 1px 1px rgba(2, 81, 89, 0.075),
     0 0 8px rgba(3, 73, 89, 0.6);
