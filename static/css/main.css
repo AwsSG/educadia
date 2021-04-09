@@ -96,9 +96,9 @@ footer {
 /* ----------- my account Form styling */
 
 .msg-container {
+  left: 50%;
   position: fixed;
-  top: 60px;
-  right: 60px;
+  transform: translate(-50%, 0px);
   z-index: 9999;
 }
 
