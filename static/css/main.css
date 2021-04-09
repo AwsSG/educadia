@@ -28,10 +28,6 @@
 
 /* ----------- base template styling */
 
-.rounded {
-  border-radius: 10%;
-}
-
 .navbar .navbar-collapse .navbar-nav .nav-item .nav-link {
   color: #bf3e0f;
   font-size: larger;
