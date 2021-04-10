@@ -5,31 +5,25 @@
     <div class="col">
       <!-- check if all user details fields are filled -->
       {% if account.first_names != None %}
-        {% if account.last_name != None %}
-          {% if account.user_type != None %}
-            <h3 class="mb-3">Welcome, {{ account.last_name }}</h3>
-          {% else %}
-            <p>Please, make sure to fill in the <strong>User type</strong> field.</p>
-          {% endif %}
-        {% else %}
-          <p>Please, make sure to fill in the <strong>Last name</strong> field.</p>
-        {% endif %}
+      {% if account.last_name != None %}
+      {% if account.user_type != None %}
+      <h3 class="mb-3">Welcome, {{ account.last_name }}</h3>
       {% else %}
-        <p>Please, make sure to fill in the <strong>First names</strong> field.</p>
+      <p>Please, make sure to fill in the <strong>User type</strong> field.</p>
+      {% endif %}
+      {% else %}
+      <p>Please, make sure to fill in the <strong>Last name</strong> field.</p>
+      {% endif %}
+      {% else %}
+      <p>Please, make sure to fill in the <strong>First names</strong> field.</p>
       {% endif %}
       <p>
-        <button
-          class="btn btn-lg main-color-2-bg text-light"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapseExample"
-          aria-expanded="false"
-          aria-controls="collapseExample"
-        >
+        <button class="btn btn-lg main-color-2-bg text-light" type="button" data-toggle="collapse"
+          data-target="#collapse-user-details" aria-expanded="false" aria-controls="collapse-user-details">
           Edit my details
         </button>
       </p>
-      <div class="collapse" id="collapseExample">
+      <div class="collapse" id="collapse-user-details">
         <div class="card card-body">
           <p class="text-secondary">Enter your details below:</p>
           <!-- User details form -->
@@ -42,10 +36,7 @@
                 {% endfor %}
               </div>
               <div class="form-group col-md-6 text-center">
-                <button
-                  type="submit"
-                  class="btn btn-lg main-color-2-bg text-light"
-                >
+                <button type="submit" class="btn btn-lg main-color-2-bg text-light">
                   Update details
                 </button>
               </div>
@@ -53,14 +44,34 @@
           </form>
         </div>
       </div>
+      <hr>
     </div>
   </div>
+  <!-- main functions (create/join class) -->
   <div class="row">
-    <div class="col">
-      {{ account.first_names }}<br />
-      join a class
+    <div class="col-md-6">
+      {% if account.user_type == 'teacher' %}
+      <p>
+        <button class="btn btn-lg main-color-1-bg text-light" type="button" data-toggle="collapse" data-target="#collapse-create-class"
+          aria-expanded="false" aria-controls="collapse-create-class">
+          Create a new class
+        </button>
+      </p>
+      <div class="collapse" id="collapse-create-class">
+        <div class="card card-body">
+          create class form goes here
+        </div>
+      </div>
+      {% else %}
+      <button class="btn btn-lg main-color-1-bg text-light">Join a class</button>
+      {% endif %}
     </div>
-    <div class="col">my current classes</div>
+    <div class="col-md-6">
+      <h3>My resources</h3>
+      <div class="card card-body">
+        <p>all relevent resources</p>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}
