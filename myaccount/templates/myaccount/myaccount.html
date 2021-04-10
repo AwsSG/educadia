@@ -3,29 +3,49 @@
 <div class="container">
   <div class="row">
     <div class="col">
+      <!-- check if all user details fields are filled -->
       {% if account.first_names != None %}
-      <h3 class="mb-3">Your account details are below</h3>
+        {% if account.last_name != None %}
+          {% if account.user_type != None %}
+            <h3 class="mb-3">Welcome, {{ account.last_name }}</h3>
+          {% else %}
+            <p>Please, make sure to fill in the <strong>User type</strong> field.</p>
+          {% endif %}
+        {% else %}
+          <p>Please, make sure to fill in the <strong>Last name</strong> field.</p>
+        {% endif %}
       {% else %}
-      <h3 class="mb-3">Please fill in your details</h3>
+        <p>Please, make sure to fill in the <strong>First names</strong> field.</p>
       {% endif %}
-
       <p>
-        <button class="btn btn-lg main-color-2-bg text-light" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <button
+          class="btn btn-lg main-color-2-bg text-light"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapseExample"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        >
           Edit my details
         </button>
       </p>
       <div class="collapse" id="collapseExample">
         <div class="card card-body">
-          <p class="text-secondary">You can change your details below:</p>
+          <p class="text-secondary">Enter your details below:</p>
           <!-- User details form -->
           <form method="POST" action="{% url 'myaccount' %}">
             <div class="col-md-6">
               {% csrf_token %}
               <div class="crispy-form-fields">
-                {% for field in form %} {{ field | as_crispy_field }} {% endfor %}
+                {% for field in form %}
+                {{ field | as_crispy_field }}
+                {% endfor %}
               </div>
               <div class="form-group col-md-6 text-center">
-                <button type="submit" class="btn btn-lg main-color-2-bg text-light">
+                <button
+                  type="submit"
+                  class="btn btn-lg main-color-2-bg text-light"
+                >
                   Update details
                 </button>
               </div>
