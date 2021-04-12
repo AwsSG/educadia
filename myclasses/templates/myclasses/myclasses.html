@@ -5,6 +5,9 @@
     <div class="row">
         <div class="col">
             <h2>all my classes here</h2>
+            {% if user.is_authenticated %}
+            <h3 class="mb-3">Welcome, {{ fname }} <br> {{ user_type }}</h3>
+            {% endif %}
         </div>
     </div>
 </div>
