@@ -4,14 +4,37 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            <!-- check if user is logged in -->
             {% if user.is_authenticated %}
-            <h3 class="mb-3">Welcome, {{ fname }} <br> {{ user_type }}</h3>
+                <h3 class="mb-3">Welcome, {{ fname }} <br> {{ user_type }}</h3>
+                {% if user_type == "teacher" %}
+                    <p>
+                    <button class="btn btn-lg main-color-1-bg text-light" type="button" data-toggle="collapse"
+                        data-target="#collapse-create-class" aria-expanded="false" aria-controls="collapse-create-class">
+                        <i class="far fa-plus-square"></i>
+                        Create a new class
+                    </button>
+                    </p>
+                    <div class="collapse" id="collapse-create-class">
+                        <div class="">
+                            create class form goes here
+                        </div>
+                    </div>
+                {% else %}
+                    <button class="btn btn-lg main-color-1-bg text-light">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Join a class
+                    </button>
+                {% endif %}
             {% else %}
-            <h2>You are not logged in</h2>
-            <hr>
-            <h3>You need to <a class="main-color-1 main-color-1-hover" href="{% url 'account_signup' %}">sign up</a> to be able to access classes</h3>
-            <h3>Already have an account? <a class="main-color-1 main-color-1-hover" href="{% url 'account_login' %}">log in</a></h3>
-            {% endif %}
+            <!-- if user not logged in -->
+                <h2>You are not logged in</h2>
+                <hr>
+                <h3>You need to <a class="main-color-1 main-color-1-hover" href="{% url 'account_signup' %}">sign up</a> to
+                    be able to access classes</h3>
+                <h3>Already have an account? <a class="main-color-1 main-color-1-hover" href="{% url 'account_login' %}">log
+                        in</a></h3>
+                {% endif %}
         </div>
     </div>
 </div>
