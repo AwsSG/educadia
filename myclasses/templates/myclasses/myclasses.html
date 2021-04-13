@@ -4,9 +4,13 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h2>all my classes here</h2>
             {% if user.is_authenticated %}
             <h3 class="mb-3">Welcome, {{ fname }} <br> {{ user_type }}</h3>
+            {% else %}
+            <h2>You are not logged in</h2>
+            <hr>
+            <h3>You need to <a class="main-color-1 main-color-1-hover" href="{% url 'account_signup' %}">sign up</a> to be able to access classes</h3>
+            <h3>Already have an account? <a class="main-color-1 main-color-1-hover" href="{% url 'account_login' %}">log in</a></h3>
             {% endif %}
         </div>
     </div>
