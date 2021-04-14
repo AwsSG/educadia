@@ -10,6 +10,10 @@ def myclasses(request):
     """ Creates new classes if the user is authenticated as 'teacher' """
     if request.user.is_authenticated:
         form = AllClassesForm()
+        if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Class added successfully')
         template = 'myclasses/myclasses.html'
         context = {
             'form': form,
