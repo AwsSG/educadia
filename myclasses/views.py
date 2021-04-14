@@ -1,8 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import AllClasses
+from .forms import AllClassesForm
+from django.contrib import messages
 
 # Create your views here.
 
 
 def myclasses(request):
-    """ Template that returns all the classes created/joined) """
-    return render(request, 'myclasses/myclasses.html')
+    """ Creates new classes if the user is authenticated as 'teacher' """
+    if request.user.is_authenticated:
+        form = AllClassesForm()
+        template = 'myclasses/myclasses.html'
+        context = {
+            'form': form,
+        }
+        return render(request, template, context)
+    else:
+        template = 'myclasses/myclasses.html'
+        return render(request, template)
