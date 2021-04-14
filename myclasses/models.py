@@ -8,6 +8,7 @@ class AllClasses(models.Model):
     """
     added_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     class_name = models.CharField(max_length=100, null=False, blank=False)
+    class_join_code = models.CharField(max_length=100, null=False, blank=False)
     class_subject = models.CharField(max_length=100, null=False, blank=False)
     class_university = models.CharField(max_length=100, null=False, blank=False)
     class_collage = models.CharField(max_length=100, null=False, blank=False)

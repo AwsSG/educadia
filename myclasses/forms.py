@@ -6,6 +6,7 @@ class AllClassesForm(forms.ModelForm):
     class Meta:
         model = AllClasses
         fields = ['class_name',
+                  'class_join_code',
                   'class_subject',
                   'class_university',
                   'class_collage',
@@ -22,6 +23,7 @@ class AllClassesForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         placeholders = {
             'class_name': 'Title',
+            'class_join_code': 'Join code',
             'class_subject': 'Subject',
             'class_university': 'University',
             'class_collage': 'Collage',
