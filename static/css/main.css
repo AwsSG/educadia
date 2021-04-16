@@ -92,6 +92,7 @@ footer {
 /* ----------- messages styling */
 
 .msg-container {
+  top: 10%;
   left: 50%;
   position: fixed;
   transform: translate(-50%, 0px);
