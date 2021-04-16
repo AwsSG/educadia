@@ -22,10 +22,13 @@ def myclasses(request):
             form = AllClassesForm()
 
         template = 'myclasses/myclasses.html'
+        all_classes = AllClasses.objects.filter(added_by=teacher)
         context = {
             'form': form,
+            'all_classes': all_classes,
         }
-
+        print(teacher)
+        print(all_classes)
         return render(request, template, context)
     else:
         template = 'myclasses/myclasses.html'
