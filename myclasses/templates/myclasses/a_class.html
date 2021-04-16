@@ -6,19 +6,19 @@
         <div class="col">
             <!-- check if user is logged in -->
             {% if user.is_authenticated %}
-                <h3 class="mb-3">Welcome, {{ lname }}</h3>
+                <h3 class="mb-3">Class name</h3>
                 {% if user_type == "teacher" %}
                     <p>
                     <button class="btn btn-lg main-color-1-bg text-light" type="button" data-toggle="collapse"
                         data-target="#collapse-create-class" aria-expanded="false" aria-controls="collapse-create-class">
                         <i class="fas fa-pen"></i>
-                        Create a new class
+                        Edit class details
                     </button>
                     </p>
                     <div class="collapse" id="collapse-create-class">
                         <div class="">
                             create class form goes here
-                            <form method="POST" action="{% url 'myclasses' %}">
+                            <form method="POST" action="{% url 'class_detail' class.id %}">
                                 <div class="col-md-6">
                                   {% csrf_token %}
                                   <div class="crispy-form-fields">
@@ -29,35 +29,18 @@
                                   <div class="form-group col-md-6 text-center">
                                     <button type="submit" class="btn btn-lg main-color-2-bg text-light">
                                       <i class="fas fa-plus-square"></i>
-                                      Create class
+                                      Save changes
                                     </button>
                                   </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    {% if all_classes %}
-                    <!-- list of all classes by created by that teacher -->
-                    <div class="list-group">
-                        {% for class in all_classes %}
-                        <a href="{% url 'class_detail' class.id %}" class="list-group-item list-group-item-action">
-                          <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{ class.class_name }}</h5>
-                            <small>{{ class.class_subject }}</small>
-                          </div>
-                          <p class="mb-1">Level: {{ class.class_level }} Group: {{ class.class_division }} Year: {{ class.class_year }}</p>
-                          <small>{{ class.class_university }}/{{ class.class_collage }}</small>
-                        </a>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                        <h5>You have not created any classes yet</h5>
-                    {% endif %}
+                    <!-- Add class metarials -->
+                    <p>Add materials</p>
+                    <p>Link youtube video</p>
                 {% else %}
-                    <button class="btn btn-lg main-color-1-bg text-light">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Join a class
-                    </button>
+                    <h5>Only teachers can access this page</h5>
                 {% endif %}
             {% else %}
             <!-- if user not logged in -->

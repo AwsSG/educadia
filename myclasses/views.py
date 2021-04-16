@@ -31,3 +31,24 @@ def myclasses(request):
     else:
         template = 'myclasses/myclasses.html'
         return render(request, template)
+
+
+def class_detail(request, class_id):
+    """ A view for individual class details """
+    a_class = get_object_or_404(AllClasses, pk=class_id)
+
+    if request.method == 'POST':
+        form = AllClassesForm(request.POST, instance=a_class)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Class details updated successfully')
+
+        form = AllClassesForm(instance=a_class)
+    else:
+        form = AllClassesForm(instance=a_class)
+    context = {
+        'form': form,
+        'class': a_class
+    }
+
+    return render(request, 'myclasses/a_class.html', context)
