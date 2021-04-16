@@ -27,8 +27,6 @@ def myclasses(request):
             'form': form,
             'all_classes': all_classes,
         }
-        print(teacher)
-        print(all_classes)
         return render(request, template, context)
     else:
         template = 'myclasses/myclasses.html'
