@@ -19,3 +19,15 @@ class AllClasses(models.Model):
 
     def __str__(self):
         return self.class_name or ''
+
+
+class AllMaterials(models.Model):
+    """Model for all educational materials"""
+    added_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, null=False, blank=False)
+    doc = models.FileField(upload_to='uploads/')
+    link = models.CharField(max_length=100, null=True, blank=True)
+    desc = models.CharField(max_length=1000, null=False, blank=False)
+
+    def __str__(self):
+        return self.name or ''
