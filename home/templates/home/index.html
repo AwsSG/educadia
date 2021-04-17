@@ -2,9 +2,15 @@
 {% block content %}
 
 <div class="container">
-    <h1>Resources cards to download/purchase</h1>
-    {{ teachers }}
-    {{ classes }}
+    <div class="row">
+        <div class="col">
+            <div class="scrolling-wrapper text-center">
+            {% for teacher in teachers %}
+                <div class="card border-0 ml-1 mr-1"><p>{{ teacher.first_names }}</p></div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
     <div class="row">
         {% for class in classes %}
         <div class="col-sm-6 col-md-6 col-lg-4">

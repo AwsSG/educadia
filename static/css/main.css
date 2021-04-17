@@ -113,3 +113,10 @@ form .col-md-6 .form-group button {
 form .col-md-6 .crispy-form-fields .f-input {
   margin-bottom: 20px;
 }
+
+/* scroling row */
+
+
+.scrolling-wrapper .card {
+  display: inline-block;
+}
