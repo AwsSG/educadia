@@ -7,17 +7,17 @@
       <div class="col">
         <!-- check if all user details fields are filled -->
         {% if account.first_names != None %}
-        {% if account.last_name != None %}
-        {% if account.user_type != None %}
-        <h3 class="mb-3">Welcome, {{ account.last_name }}</h3>
-        {% else %}
-        <p>Please, make sure to fill in the <strong>User type</strong> field.</p>
-        {% endif %}
-        {% else %}
-        <p>Please, make sure to fill in the <strong>Last name</strong> field.</p>
-        {% endif %}
-        {% else %}
-        <p>Please, make sure to fill in the <strong>First names</strong> field.</p>
+          {% if account.last_name != None %}
+            {% if account.user_type != None %}
+              <h3 class="mb-3">Welcome, {{ account.last_name }}</h3>
+            {% else %}
+              <p>Please, make sure to fill in the <strong>User type</strong> field.</p>
+            {% endif %}
+            {% else %}
+            <p>Please, make sure to fill in the <strong>Last name</strong> field.</p>
+            {% endif %}
+          {% else %}
+          <p>Please, make sure to fill in the <strong>First names</strong> field.</p>
         {% endif %}
         <p>
           <button class="btn btn-lg main-color-2-bg text-light" type="button" data-toggle="collapse"

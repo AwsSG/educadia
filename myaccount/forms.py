@@ -21,10 +21,7 @@ class UserAccountForm(forms.ModelForm):
 
         self.fields['first_names'].widget.attrs['autofocus'] = True
         for field in self.fields:
-            if self.fields[field].required:
-                placeholder = f'{placeholders[field]} *'
-            else:
-                placeholder = placeholders[field]
+            placeholder = placeholders[field]
             self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'form-control f-input'
             self.fields[field].label = False
