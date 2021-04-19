@@ -32,7 +32,7 @@
           <div class="card card-body">
             <p class="text-secondary">Enter your details below:</p>
             <!-- User details form -->
-            <form method="POST" action="{% url 'myaccount' %}">
+            <form method="POST" action="{% url 'myaccount' %}" enctype="multipart/form-data">
               <div class="col-md-6">
                 {% csrf_token %}
                 <div class="crispy-form-fields">

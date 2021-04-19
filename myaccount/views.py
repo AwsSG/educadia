@@ -10,7 +10,7 @@ def myaccount(request):
     if request.user.is_authenticated:
         account = get_object_or_404(UserAccount, user=request.user)
         if request.method == 'POST':
-            form = UserAccountForm(request.POST, instance=account)
+            form = UserAccountForm(request.POST, request.FILES, instance=account)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Profile updated successfully')
