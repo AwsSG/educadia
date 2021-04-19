@@ -10,11 +10,11 @@ class AllClasses(models.Model):
     class_name = models.CharField(max_length=100, null=False, blank=False)
     class_join_code = models.CharField(max_length=100, null=False, blank=False)
     class_subject = models.CharField(max_length=100, null=False, blank=False)
-    class_university = models.CharField(max_length=100, null=False, blank=False)
-    class_collage = models.CharField(max_length=100, null=False, blank=False)
-    class_department = models.CharField(max_length=100, null=False, blank=False)
+    class_university = models.CharField(max_length=100, null=True, blank=True)
+    class_collage = models.CharField(max_length=100, null=True, blank=True)
+    class_department = models.CharField(max_length=100, null=True, blank=True)
     class_level = models.CharField(max_length=100, null=False, blank=False)
-    class_division = models.CharField(max_length=100, null=False, blank=False)
+    class_division = models.CharField(max_length=100, null=True, blank=True)
     class_year = models.CharField(max_length=100, null=False, blank=False)
 
     def __str__(self):
