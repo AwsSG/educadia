@@ -1,5 +1,5 @@
 from django import forms
-from .models import AllClasses
+from .models import AllClasses, AllMaterials
 
 
 class AllClassesForm(forms.ModelForm):
@@ -34,6 +34,36 @@ class AllClassesForm(forms.ModelForm):
         }
 
         self.fields['class_name'].widget.attrs['autofocus'] = True
+        for field in self.fields:
+            if self.fields[field].required:
+                placeholder = f'{placeholders[field]} *'
+            else:
+                placeholder = placeholders[field]
+            self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].widget.attrs['class'] = 'form-control f-input'
+            self.fields[field].label = False
+
+
+class AllMaterialsForm(forms.ModelForm):
+    class Meta:
+        model = AllMaterials
+        fields = ['name', 'doc', 'link', 'desc']
+
+    def __init__(self, *args, **kwargs):
+        """
+        Add placeholders and classes, remove auto-generated
+        labels and set autofocus on first field
+        """
+        super().__init__(*args, **kwargs)
+        placeholders = {
+            'name': 'Title',
+            'doc': '',
+            'link': 'Link/url for a video (e.g. youtube)',
+            'desc': 'Description',
+        }
+
+        self.fields['desc'].widget = forms.Textarea()
+        self.fields['name'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if self.fields[field].required:
                 placeholder = f'{placeholders[field]} *'

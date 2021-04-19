@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import AllClasses
 from myaccount.models import UserAccount
-from .forms import AllClassesForm
+from .forms import AllClassesForm, AllMaterialsForm
 from django.contrib import messages
 
 # Create your views here.
@@ -36,6 +36,7 @@ def myclasses(request):
 def class_detail(request, class_id):
     """ A view for individual class details """
     a_class = get_object_or_404(AllClasses, pk=class_id)
+    form_upload = AllMaterialsForm()
 
     if request.method == 'POST':
         form = AllClassesForm(request.POST, instance=a_class)
@@ -47,6 +48,7 @@ def class_detail(request, class_id):
     else:
         form = AllClassesForm(instance=a_class)
     context = {
+        'form_upload': form_upload,
         'form': form,
         'class': a_class
     }
