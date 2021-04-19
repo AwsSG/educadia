@@ -5,7 +5,7 @@ from .models import UserAccount
 class UserAccountForm(forms.ModelForm):
     class Meta:
         model = UserAccount
-        fields = ['first_names', 'last_name', 'user_type']
+        fields = ['first_names', 'last_name', 'user_type', 'bio', 'image']
 
     def __init__(self, *args, **kwargs):
         """
@@ -17,8 +17,11 @@ class UserAccountForm(forms.ModelForm):
             'first_names': 'Full name',
             'last_name': 'Last name',
             'user_type': 'User type',
+            'bio': 'Short bio/summary',
+            'image': 'Upload your image',
         }
 
+        self.fields['bio'].widget = forms.Textarea()
         self.fields['first_names'].widget.attrs['autofocus'] = True
         for field in self.fields:
             placeholder = placeholders[field]

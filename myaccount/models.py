@@ -17,6 +17,8 @@ class UserAccount(models.Model):
     first_names = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
     user_type = models.CharField(max_length=100, null=True, blank=True, choices=USER_TYPE_CHOICES)
+    bio = models.CharField(max_length=1000, null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.first_names or ''
