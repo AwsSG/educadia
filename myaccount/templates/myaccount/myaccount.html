@@ -19,28 +19,27 @@
           {% else %}
           <p>Please, make sure to fill in the <strong>First names</strong> field.</p>
         {% endif %}
-        <img src="{{ account.image }}" alt="">
-        {{ account.image }}
         <p>
           <button class="btn btn-lg main-color-2-bg text-light" type="button" data-toggle="collapse"
-            data-target="#collapse-user-details" aria-expanded="false" aria-controls="collapse-user-details">
-            <i class="fas fa-user-edit"></i>
-            Edit my details
+          data-target="#collapse-user-details" aria-expanded="false" aria-controls="collapse-user-details">
+          <i class="fas fa-user-edit"></i>
+          Edit my details
           </button>
         </p>
         <div class="collapse" id="collapse-user-details">
+          <img class="img-thumbnail rounded-lg float-right" src="{{ MEDIA_URL }}{{ account.image }}" alt="">
           <div class="card card-body">
             <p class="text-secondary">Enter your details below:</p>
             <!-- User details form -->
             <form method="POST" action="{% url 'myaccount' %}" enctype="multipart/form-data">
-              <div class="col-md-6">
+              <div class="col">
                 {% csrf_token %}
                 <div class="crispy-form-fields">
                   {% for field in form %}
                   {{ field | as_crispy_field }}
                   {% endfor %}
                 </div>
-                <div class="form-group col-md-6 text-center">
+                <div class="form-group col text-center">
                   <button type="submit" class="btn btn-lg main-color-2-bg text-light">
                     <i class="fas fa-pen"></i>
                     Update details

@@ -106,11 +106,11 @@ footer {
     0 0 4px rgba(3, 73, 89, 0.6);
 }
 
-form .col-md-6 .form-group button {
+form .form-group button {
   margin-top: 10px;
 }
 
-form .col-md-6 .crispy-form-fields .f-input {
+form .crispy-form-fields .f-input {
   margin-bottom: 20px;
 }
 
