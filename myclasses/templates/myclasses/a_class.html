@@ -38,7 +38,14 @@
                     </div>
                     <!-- Add class metarials -->
                     <form method="POST" action="">
-                    {{ form_upload }}
+                        <div class="col-md-6">
+                            {% csrf_token %}
+                            <div class="crispy-form-fields">
+                            {% for field in form_upload %}
+                                {{ field | as_crispy_field }}
+                            {% endfor %}
+                            </div>
+                        </div>
                     </form>
                     <p>Add materials</p>
                     <p>Link youtube video</p>
