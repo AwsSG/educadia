@@ -54,8 +54,17 @@
                               </div>
                         </div>
                     </form>
-                    <p>Add materials</p>
-                    <p>Link youtube video</p>
+                    <div class="list-group mb-3">
+                        {% for material in class_materials %}
+                        <a href="" class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ material.name }}</h5>
+                            <small>{{ material.doc }}</small>
+                          </div>
+                          <p class="mb-1">{{ material.desc }}</p>
+                        </a>
+                        {% endfor %}
+                    </div>
                 {% else %}
                     <h5>Only teachers can access this page</h5>
                 {% endif %}

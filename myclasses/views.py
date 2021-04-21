@@ -61,10 +61,13 @@ def class_detail(request, class_id):
         form_upload = AllMaterialsForm()
     else:
         form = AllClassesForm(instance=a_class)
+
+    class_materials = AllMaterials.objects.filter(added_by=teacher, for_class=a_class)
     context = {
         'form_upload': form_upload,
         'form': form,
-        'class': a_class
+        'class': a_class,
+        'class_materials': class_materials
     }
 
     return render(request, 'myclasses/a_class.html', context)
