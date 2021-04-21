@@ -6,7 +6,7 @@
         <div class="col">
             <!-- check if user is logged in -->
             {% if user.is_authenticated %}
-                <h3 class="mb-3">Class name</h3>
+                <h3 class="mb-3">{{ class.class_name }}</h3>
                 {% if user_type == "teacher" %}
                 <div class="row">
                     <div class="col-md-6 text-center mb-2">
@@ -73,7 +73,7 @@
                         {% endfor %}
                     </div>
                     {% else %}
-                    <div class="card card-body">
+                    <div class="card card-body mb-3">
                         <h5 class="text-center">You have not uploaded any materials for this class yet</h5>
                     </div>
                     {% endif %}

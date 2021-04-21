@@ -41,7 +41,6 @@ def class_detail(request, class_id):
     teacher = get_object_or_404(UserAccount, user=request.user)
     # edit class POST handler
     if request.method == 'POST' and 'edit_class_form' in request.POST:
-        print("posting class edit")
         form = AllClassesForm(request.POST, instance=a_class)
         if form.is_valid():
             form.save()
@@ -50,11 +49,11 @@ def class_detail(request, class_id):
         form = AllClassesForm(instance=a_class)
     # add material POST handler
     elif request.method == 'POST' and 'add_material_form' in request.POST:
-        print("posting materials")
         form_upload = AllMaterialsForm(request.POST, request.FILES)
         if form_upload.is_valid():
             new_material = form_upload.save(commit=False)
             new_material.added_by = teacher
+            new_material.for_class = a_class
             new_material.save()
             messages.success(request, 'Material uploaded successfully')
 
