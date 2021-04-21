@@ -21,6 +21,7 @@ class MyClassesAdmin(admin.ModelAdmin):
 class AllMaterialsAdmin(admin.ModelAdmin):
     list_display = (
         'added_by',
+        'for_class',
         'name',
         'doc',
         'link',
