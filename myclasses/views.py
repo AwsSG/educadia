@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from .models import AllClasses
+from .models import AllClasses, AllMaterials
 from myaccount.models import UserAccount
 from .forms import AllClassesForm, AllMaterialsForm
 from django.contrib import messages
@@ -37,14 +37,28 @@ def class_detail(request, class_id):
     """ A view for individual class details """
     a_class = get_object_or_404(AllClasses, pk=class_id)
     form_upload = AllMaterialsForm()
-
-    if request.method == 'POST':
+    form = AllClassesForm(instance=a_class)
+    teacher = get_object_or_404(UserAccount, user=request.user)
+    # edit class POST handler
+    if request.method == 'POST' and 'edit_class_form' in request.POST:
+        print("posting class edit")
         form = AllClassesForm(request.POST, instance=a_class)
         if form.is_valid():
             form.save()
             messages.success(request, 'Class details updated successfully')
 
         form = AllClassesForm(instance=a_class)
+    # add material POST handler
+    elif request.method == 'POST' and 'add_material_form' in request.POST:
+        print("posting materials")
+        form_upload = AllMaterialsForm(request.POST, request.FILES)
+        if form_upload.is_valid():
+            new_material = form_upload.save(commit=False)
+            new_material.added_by = teacher
+            new_material.save()
+            messages.success(request, 'Material uploaded successfully')
+
+        form_upload = AllMaterialsForm()
     else:
         form = AllClassesForm(instance=a_class)
     context = {
