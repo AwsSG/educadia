@@ -24,6 +24,7 @@ class AllClasses(models.Model):
 class AllMaterials(models.Model):
     """Model for all educational materials"""
     added_by = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    for_class = models.ForeignKey(AllClasses, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, null=False, blank=False)
     doc = models.FileField(upload_to='uploads/')
     link = models.CharField(max_length=100, null=True, blank=True)
