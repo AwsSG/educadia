@@ -95,3 +95,12 @@ def material_detail(request, material_id):
         'form_upload': form_upload
     }
     return render(request, 'myclasses/edit_material.html', context)
+
+
+def delete_material(request, material_id):
+    """delete selected material"""
+    material_to_delete = get_object_or_404(AllMaterials, pk=material_id)
+    class_id = material_to_delete.for_class.id
+    material_to_delete.delete()
+    messages.success(request, 'Material deleted successfully')
+    return redirect(reverse('class_detail', args=[class_id]))
