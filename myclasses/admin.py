@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AllClasses, AllMaterials
+from .models import AllClasses, AllMaterials, ClassRegister
 # Register your models here.
 
 
@@ -28,5 +28,14 @@ class AllMaterialsAdmin(admin.ModelAdmin):
     )
 
 
+class ClassRegisterAdmin(admin.ModelAdmin):
+    list_display = (
+        'student_name',
+        'registered_for',
+        'join_code',
+    )
+
+
 admin.site.register(AllClasses, MyClassesAdmin)
 admin.site.register(AllMaterials, AllMaterialsAdmin)
+admin.site.register(ClassRegister, ClassRegisterAdmin)
