@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!-- check if user is logged in -->
+            {% if user.is_authenticated %}
+                <h3 class="mb-3">{{ class.class_name }}</h3>
+                {% if user_type == "teacher" %}
+                <div class="row">
+                    <div class="col-md-6 text-center mb-2">
+                        <button class="btn btn-lg main-color-1-bg text-light" type="button" data-toggle="collapse" data-target="#add_material_form" aria-expanded="false" aria-controls="add_material_form">Add material to this class</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- edit material form -->
+                    <div class="col-md-6 mb-3">
+                        <div class="collapse multi-collapse" id="add_material_form">
+                        <div class="card card-body">
+                            <form method="POST" action="{% url 'class_detail' class.id %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="crispy-form-fields">
+                                {% for field in form_upload %}
+                                    {{ field | as_crispy_field }}
+                                {% endfor %}
+                                </div>
+                                <div class="form-group text-center">
+                                    <button type="submit" name="add_material_form" class="btn btn-lg main-color-2-bg text-light">
+                                        <i class="fas fa-plus-square"></i>
+                                        Upload material
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- delete material button -->
+                <div class="row">
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-lg bg-danger text-light mb-3" data-toggle="modal" data-target="#delete_class_modal">Delete this material</button>
+                    </div>
+                </div>
+                <!-- delete class modal -->
+                <div class="modal fade" id="delete_class_modal" tabindex="-1" aria-labelledby="delete_class" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="delete_class">Delete {{ class.class_name }}</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <h6>Are you sure you want to delete {{ class.class_name }}?</h6>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <a href="" class="btn btn-primary bg-danger">Yes, delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% else %}
+                    <h5>Only teachers can access this page</h5>
+                {% endif %}
+            {% else %}
+            <!-- if user not logged in -->
+                <h2>You are not logged in</h2>
+                <hr>
+                <h3>You need to <a class="main-color-1 main-color-1-hover" href="{% url 'account_signup' %}">sign up</a> to
+                    be able to access classes</h3>
+                <h3>Already have an account? <a class="main-color-1 main-color-1-hover" href="{% url 'account_login' %}">log
+                        in</a></h3>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

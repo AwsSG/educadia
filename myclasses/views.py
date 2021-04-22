@@ -69,7 +69,7 @@ def class_detail(request, class_id):
         'class_materials': class_materials
     }
 
-    return render(request, 'myclasses/a_class.html', context)
+    return render(request, 'myclasses/edit_class.html', context)
 
 
 def delete_class(request, class_id):
