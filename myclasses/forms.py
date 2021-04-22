@@ -1,5 +1,5 @@
 from django import forms
-from .models import AllClasses, AllMaterials
+from .models import AllClasses, AllMaterials, ClassRegister
 
 
 class AllClassesForm(forms.ModelForm):
@@ -72,3 +72,22 @@ class AllMaterialsForm(forms.ModelForm):
             self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'form-control f-input'
             self.fields[field].label = False
+
+
+class ClassRegisterForm(forms.ModelForm):
+    class Meta:
+        model = ClassRegister
+        fields = ['join_code']
+
+    def __init__(self, *args, **kwargs):
+        """
+        Add placeholders and classes, remove auto-generated
+        labels and set autofocus on first field
+        """
+        super().__init__(*args, **kwargs)
+        placeholder = 'Enter the code to join the class'
+
+        self.fields['join_code'].widget.attrs['autofocus'] = True
+        self.fields['join_code'].widget.attrs['placeholder'] = f'{placeholder} *'
+        self.fields['join_code'].widget.attrs['class'] = 'form-control f-input'
+        self.fields['join_code'].label = False

@@ -54,10 +54,31 @@
                         <h5>You have not created any classes yet</h5>
                     {% endif %}
                 {% else %}
-                    <button class="btn btn-lg main-color-1-bg text-light">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Join a class
-                    </button>
+                <!-- if logged in as student -->
+                <div class="row">
+                    <div class="col">
+                        <form method="POST" action="">
+                            <div class="col-md-6">
+                              {% csrf_token %}
+                              <div class="crispy-form-fields">
+                                {% for field in join_form %}
+                                {{ field | as_crispy_field }}
+                                {% endfor %}
+                              </div>
+                              <div class="form-group col-md-6 text-center">
+                                <button type="submit" class="btn btn-lg main-color-2-bg text-light">
+                                  <i class="fas fa-plus-square"></i>
+                                  join this class
+                                </button>
+                              </div>
+                            </div>
+                        </form>
+                        <button class="btn btn-lg main-color-1-bg text-light">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Join a class
+                        </button>
+                    </div>
+                </div>
                 {% endif %}
             {% else %}
             <!-- if user not logged in -->

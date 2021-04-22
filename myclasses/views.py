@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import AllClasses, AllMaterials
 from myaccount.models import UserAccount
-from .forms import AllClassesForm, AllMaterialsForm
+from .forms import AllClassesForm, AllMaterialsForm, ClassRegisterForm
 from django.contrib import messages
 
 # Create your views here.
@@ -11,21 +11,27 @@ def myclasses(request):
     """ Creates new classes if the user is authenticated as 'teacher' """
     if request.user.is_authenticated:
         teacher = get_object_or_404(UserAccount, user=request.user)
-        if request.method == 'POST':
-            form = AllClassesForm(request.POST)
-            if form.is_valid():
-                new_class = form.save(commit=False)
-                new_class.added_by = teacher
-                new_class.save()
-                messages.success(request, 'Class added successfully')
+        form = AllClassesForm()
+        join_form = ClassRegisterForm()
+        if teacher.user_type != 'student':
+            if request.method == 'POST':
+                form = AllClassesForm(request.POST)
+                if form.is_valid():
+                    new_class = form.save(commit=False)
+                    new_class.added_by = teacher
+                    new_class.save()
+                    messages.success(request, 'Class added successfully')
+            else:
+                form = AllClassesForm()
         else:
-            form = AllClassesForm()
+            pass
 
         template = 'myclasses/myclasses.html'
         all_classes = AllClasses.objects.filter(added_by=teacher)
         context = {
             'form': form,
             'all_classes': all_classes,
+            'join_form': join_form,
         }
         return render(request, template, context)
     else:
