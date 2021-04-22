@@ -70,3 +70,11 @@ def class_detail(request, class_id):
     }
 
     return render(request, 'myclasses/a_class.html', context)
+
+
+def delete_class(request, class_id):
+    """delete selected class"""
+    class_to_delete = get_object_or_404(AllClasses, pk=class_id)
+    class_to_delete.delete()
+    messages.success(request, 'Class deleted successfully')
+    return redirect(reverse('myclasses'))
