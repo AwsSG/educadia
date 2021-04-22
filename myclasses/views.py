@@ -78,3 +78,20 @@ def delete_class(request, class_id):
     class_to_delete.delete()
     messages.success(request, 'Class deleted successfully')
     return redirect(reverse('myclasses'))
+
+
+def material_detail(request, material_id):
+    """A view to edit a material"""
+    material = get_object_or_404(AllMaterials, pk=material_id)
+    if request.method == 'POST':
+        form_upload = AllMaterialsForm(request.POST, request.FILES, instance=material)
+        if form_upload.is_valid:
+            form_upload.save()
+            messages.success(request, 'Changes saved successfully')
+
+    form_upload = AllMaterialsForm(instance=material)
+    context = {
+        'material': material,
+        'form_upload': form_upload
+    }
+    return render(request, 'myclasses/edit_material.html', context)
