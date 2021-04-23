@@ -88,7 +88,7 @@ class ClassRegisterForm(forms.ModelForm):
         placeholder1 = 'Enter the code to join the class'
         placeholder2 = 'Select class to join'
 
-        self.fields['join_code'].widget.attrs['autofocus'] = True
+        self.fields['registered_for'].widget.attrs['autofocus'] = True
         self.fields['join_code'].widget.attrs['placeholder'] = f'{placeholder1} *'
         self.fields['registered_for'].empty_label = f'{placeholder2} *'
         for field in self.fields:

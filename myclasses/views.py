@@ -26,7 +26,20 @@ def myclasses(request):
                 form = AllClassesForm()
         else:
             # joins classes if user is authenticated as 'student'
-            pass
+            if request.method == 'POST':
+                student = get_object_or_404(UserAccount, user=request.user)
+                join_form = ClassRegisterForm(request.POST)
+                class_code = AllClasses.objects.filter(id=join_form['registered_for'].value())[0].class_join_code
+                given_code = join_form['join_code'].value()
+                if class_code == given_code:
+                    if join_form.is_valid:
+                        new_student = join_form.save(commit=False)
+                        new_student.student_name = student
+                        new_student.save()
+                        messages.success(request, 'You joined class successfully')
+                        join_form = ClassRegisterForm()
+                else:
+                    messages.success(request, 'The join code you entered for the selected class is incorrect')
 
         template = 'myclasses/myclasses.html'
         all_classes = AllClasses.objects.filter(added_by=teacher)
