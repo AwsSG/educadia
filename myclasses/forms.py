@@ -77,7 +77,7 @@ class AllMaterialsForm(forms.ModelForm):
 class ClassRegisterForm(forms.ModelForm):
     class Meta:
         model = ClassRegister
-        fields = ['join_code']
+        fields = ['registered_for', 'join_code']
 
     def __init__(self, *args, **kwargs):
         """
@@ -85,9 +85,12 @@ class ClassRegisterForm(forms.ModelForm):
         labels and set autofocus on first field
         """
         super().__init__(*args, **kwargs)
-        placeholder = 'Enter the code to join the class'
+        placeholder1 = 'Enter the code to join the class'
+        placeholder2 = 'Select class to join'
 
         self.fields['join_code'].widget.attrs['autofocus'] = True
-        self.fields['join_code'].widget.attrs['placeholder'] = f'{placeholder} *'
-        self.fields['join_code'].widget.attrs['class'] = 'form-control f-input'
-        self.fields['join_code'].label = False
+        self.fields['join_code'].widget.attrs['placeholder'] = f'{placeholder1} *'
+        self.fields['registered_for'].empty_label = f'{placeholder2} *'
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control f-input'
+            self.fields[field].label = False

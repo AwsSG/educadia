@@ -21,7 +21,7 @@ class UserAccount(models.Model):
     image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
-        return self.first_names or ''
+        return str(self.first_names) or ''
 
 
 @receiver(post_save, sender=User)

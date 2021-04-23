@@ -36,9 +36,9 @@ class AllMaterials(models.Model):
 
 class ClassRegister(models.Model):
     """Model that specifies which student is registered for which class"""
-    student_name = models.OneToOneField(UserAccount, on_delete=models.CASCADE)
+    student_name = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     registered_for = models.ForeignKey(AllClasses, on_delete=models.CASCADE)
     join_code = models.CharField(max_length=100, null=False, blank=False)
 
     def __str__(self):
-        return self.student_name or ''
+        return str(self.student_name) or ''

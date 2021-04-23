@@ -14,6 +14,7 @@ def myclasses(request):
         form = AllClassesForm()
         join_form = ClassRegisterForm()
         if teacher.user_type != 'student':
+            # Creates new classes if the user is authenticated as 'teacher'
             if request.method == 'POST':
                 form = AllClassesForm(request.POST)
                 if form.is_valid():
@@ -24,6 +25,7 @@ def myclasses(request):
             else:
                 form = AllClassesForm()
         else:
+            # joins classes if user is authenticated as 'student'
             pass
 
         template = 'myclasses/myclasses.html'
