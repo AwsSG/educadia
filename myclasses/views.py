@@ -31,9 +31,8 @@ def myclasses(request):
                 join_form = ClassRegisterForm(request.POST)
                 class_code = AllClasses.objects.filter(id=join_form['registered_for'].value())[0].class_join_code
                 given_code = join_form['join_code'].value()
-                code_already_exist = ClassRegister.objects.filter(join_code=given_code)
-                if not code_already_exist:
-                    print('already rigestered in this class')
+                already_registered = ClassRegister.objects.filter(join_code=given_code, student_name=student)
+                if not already_registered:  # check if student already registered for that class
                     if class_code == given_code:
                         if join_form.is_valid:
                             new_student = join_form.save(commit=False)
