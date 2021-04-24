@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from .models import AllClasses, AllMaterials
+from .models import AllClasses, AllMaterials, ClassRegister
 from myaccount.models import UserAccount
 from .forms import AllClassesForm, AllMaterialsForm, ClassRegisterForm
 from django.contrib import messages
@@ -31,15 +31,20 @@ def myclasses(request):
                 join_form = ClassRegisterForm(request.POST)
                 class_code = AllClasses.objects.filter(id=join_form['registered_for'].value())[0].class_join_code
                 given_code = join_form['join_code'].value()
-                if class_code == given_code:
-                    if join_form.is_valid:
-                        new_student = join_form.save(commit=False)
-                        new_student.student_name = student
-                        new_student.save()
-                        messages.success(request, 'You joined class successfully')
-                        join_form = ClassRegisterForm()
+                code_already_exist = ClassRegister.objects.filter(join_code=given_code)
+                if not code_already_exist:
+                    print('already rigestered in this class')
+                    if class_code == given_code:
+                        if join_form.is_valid:
+                            new_student = join_form.save(commit=False)
+                            new_student.student_name = student
+                            new_student.save()
+                            messages.success(request, 'You joined class successfully')
+                            join_form = ClassRegisterForm()
+                    else:
+                        messages.success(request, 'The join code you entered for the selected class is incorrect')
                 else:
-                    messages.success(request, 'The join code you entered for the selected class is incorrect')
+                    messages.success(request, 'You are already registered for this class')
 
         template = 'myclasses/myclasses.html'
         all_classes = AllClasses.objects.filter(added_by=teacher)
