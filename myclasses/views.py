@@ -8,7 +8,7 @@ from django.contrib import messages
 
 
 def myclasses(request):
-    """ Creates new classes if the user is authenticated as 'teacher' """
+    """ view to add or join classes based on user type """
     if request.user.is_authenticated:
         teacher = get_object_or_404(UserAccount, user=request.user)
         student = None
@@ -48,7 +48,8 @@ def myclasses(request):
 
         template = 'myclasses/myclasses.html'
         all_classes = AllClasses.objects.filter(added_by=teacher)
-        joined_classes = ClassRegister.objects.filter(student_name=student)
+        registered_classes = ClassRegister.objects.filter(student_name=student).values_list('registered_for', flat=True)
+        joined_classes = AllClasses.objects.filter(id__in=registered_classes)
         context = {
             'form': form,
             'all_classes': all_classes,
@@ -67,29 +68,34 @@ def class_detail(request, class_id):
     form_upload = AllMaterialsForm()
     form = AllClassesForm(instance=a_class)
     teacher = get_object_or_404(UserAccount, user=request.user)
-    # edit class POST handler
-    if request.method == 'POST' and 'edit_class_form' in request.POST:
-        form = AllClassesForm(request.POST, instance=a_class)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Class details updated successfully')
+    # check if user is a teacher
+    if teacher.user_type != 'student':
+        # edit class POST handler
+        if request.method == 'POST' and 'edit_class_form' in request.POST:
+            form = AllClassesForm(request.POST, instance=a_class)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Class details updated successfully')
 
-        form = AllClassesForm(instance=a_class)
-    # add material POST handler
-    elif request.method == 'POST' and 'add_material_form' in request.POST:
-        form_upload = AllMaterialsForm(request.POST, request.FILES)
-        if form_upload.is_valid():
-            new_material = form_upload.save(commit=False)
-            new_material.added_by = teacher
-            new_material.for_class = a_class
-            new_material.save()
-            messages.success(request, 'Material uploaded successfully')
+            form = AllClassesForm(instance=a_class)
+        # add material POST handler
+        elif request.method == 'POST' and 'add_material_form' in request.POST:
+            form_upload = AllMaterialsForm(request.POST, request.FILES)
+            if form_upload.is_valid():
+                new_material = form_upload.save(commit=False)
+                new_material.added_by = teacher
+                new_material.for_class = a_class
+                new_material.save()
+                messages.success(request, 'Material uploaded successfully')
 
-        form_upload = AllMaterialsForm()
-    else:
-        form = AllClassesForm(instance=a_class)
+            form_upload = AllMaterialsForm()
+        else:
+            form = AllClassesForm(instance=a_class)
+    else:  # user is a student
+        # get pk for the class to view materials
+        print(a_class)
 
-    class_materials = AllMaterials.objects.filter(added_by=teacher, for_class=a_class)
+    class_materials = AllMaterials.objects.filter(for_class=a_class)
     context = {
         'form_upload': form_upload,
         'form': form,

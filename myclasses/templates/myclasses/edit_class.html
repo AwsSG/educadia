@@ -8,6 +8,7 @@
             {% if user.is_authenticated %}
                 <h3 class="mb-3">{{ class.class_name }}</h3>
                 {% if user_type == "teacher" %}
+                <!-- view teacher block -->
                 <div class="row">
                     <div class="col-md-6 text-center mb-2">
                         <button class="btn btn-lg main-color-1-bg text-light" type="button" data-toggle="collapse" data-target="#edit_class_form" aria-expanded="false" aria-controls="edit_class_form">Edit class details</button>
@@ -109,7 +110,28 @@
                     </div>
                   </div>
                 {% else %}
-                    <h5>Only teachers can access this page</h5>
+                <!-- view student block -->
+                <div class="row">
+                    <div class="col">
+                        {% if class_materials %}
+                    <div class="list-group mb-3">
+                        {% for material in class_materials %}
+                        <a href="" class="list-group-item list-group-item-action">
+                          <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ material.name }}</h5>
+                            <small>{{ material.doc }}</small>
+                          </div>
+                          <p class="mb-1">{{ material.desc }}</p>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="card card-body mb-3">
+                        <h5 class="text-center">The teacher has not uploaded any materials for this class yet</h5>
+                    </div>
+                    {% endif %}
+                    </div>
+                </div>
                 {% endif %}
             {% else %}
             <!-- if user not logged in -->

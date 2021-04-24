@@ -87,10 +87,10 @@
                       {% for class in joined_classes %}
                       <a href="{% url 'class_detail' class.id %}" class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">{{ class.registered_for }}</h5>
-                          <small>{{ class.registered_for.class_year }}</small>
+                          <h5 class="mb-1">{{ class.class_name }}</h5>
+                          <small>{{ class.class_year }}</small>
                         </div>
-                        <p class="mb-1">{{ class.registered_for.added_by }}</p>
+                        <p class="mb-1">{{ class.added_by }}</p>
                       </a>
                       {% endfor %}
                     </div>
