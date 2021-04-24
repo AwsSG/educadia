@@ -79,6 +79,28 @@
                         </button>
                     </div>
                 </div>
+                <div class="row">
+                  <div class="col">
+                    {% if joined_classes %}
+                    <!-- list of joined classes if any -->
+                    <div class="list-group mb-3">
+                      {% for class in joined_classes %}
+                      <a href="{% url 'class_detail' class.id %}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">{{ class.registered_for }}</h5>
+                          <small>{{ class.registered_for.class_year }}</small>
+                        </div>
+                        <p class="mb-1">{{ class.registered_for.added_by }}</p>
+                      </a>
+                      {% endfor %}
+                    </div>
+                    {% else %}
+                      <div class="card card-body mb-3">
+                        <h5 class="text-center">You have not joined any classes yet</h5>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
                 {% endif %}
             {% else %}
             <!-- if user not logged in -->

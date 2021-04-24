@@ -11,6 +11,7 @@ def myclasses(request):
     """ Creates new classes if the user is authenticated as 'teacher' """
     if request.user.is_authenticated:
         teacher = get_object_or_404(UserAccount, user=request.user)
+        student = None
         form = AllClassesForm()
         join_form = ClassRegisterForm()
         if teacher.user_type != 'student':
@@ -26,8 +27,8 @@ def myclasses(request):
                 form = AllClassesForm()
         else:
             # joins classes if user is authenticated as 'student'
+            student = get_object_or_404(UserAccount, user=request.user)
             if request.method == 'POST':
-                student = get_object_or_404(UserAccount, user=request.user)
                 join_form = ClassRegisterForm(request.POST)
                 class_code = AllClasses.objects.filter(id=join_form['registered_for'].value())[0].class_join_code
                 given_code = join_form['join_code'].value()
@@ -47,10 +48,12 @@ def myclasses(request):
 
         template = 'myclasses/myclasses.html'
         all_classes = AllClasses.objects.filter(added_by=teacher)
+        joined_classes = ClassRegister.objects.filter(student_name=student)
         context = {
             'form': form,
             'all_classes': all_classes,
             'join_form': join_form,
+            'joined_classes': joined_classes,
         }
         return render(request, template, context)
     else:
