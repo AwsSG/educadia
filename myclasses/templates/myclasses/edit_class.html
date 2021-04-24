@@ -115,15 +115,15 @@
                     <div class="col">
                     <!-- view downloadable class materials -->
                     {% if class_materials %}
-                        <div class="card-deck">
+                        <div class="card-deck card-deck-style">
                             {% for material in class_materials %}
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ material.name }}</h5>
                                     <p class="card-text">{{ material.desc }}</p>
                                 </div>
-                                <div class="card-footer">
-                                    <small class="text-muted"><a href="">Last updated 3 mins ago</a></small>
+                                <div class="card-footer text-right">
+                                    <a class="btn btn-sm main-color-2-bg text-light" href="{{ MEDIA_URL}}{{ material.doc }}" download>Download</a>
                                 </div>
                             </div>
                             {% endfor %}
