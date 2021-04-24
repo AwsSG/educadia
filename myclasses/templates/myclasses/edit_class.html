@@ -113,18 +113,21 @@
                 <!-- view student block -->
                 <div class="row">
                     <div class="col">
-                        {% if class_materials %}
-                    <div class="list-group mb-3">
-                        {% for material in class_materials %}
-                        <a href="" class="list-group-item list-group-item-action">
-                          <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{ material.name }}</h5>
-                            <small>{{ material.doc }}</small>
+                    <!-- view downloadable class materials -->
+                    {% if class_materials %}
+                        <div class="card-deck">
+                            {% for material in class_materials %}
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ material.name }}</h5>
+                                    <p class="card-text">{{ material.desc }}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted"><a href="">Last updated 3 mins ago</a></small>
+                                </div>
+                            </div>
+                            {% endfor %}
                           </div>
-                          <p class="mb-1">{{ material.desc }}</p>
-                        </a>
-                        {% endfor %}
-                    </div>
                     {% else %}
                     <div class="card card-body mb-3">
                         <h5 class="text-center">The teacher has not uploaded any materials for this class yet</h5>

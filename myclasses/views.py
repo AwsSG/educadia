@@ -91,9 +91,6 @@ def class_detail(request, class_id):
             form_upload = AllMaterialsForm()
         else:
             form = AllClassesForm(instance=a_class)
-    else:  # user is a student
-        # get pk for the class to view materials
-        print(a_class)
 
     class_materials = AllMaterials.objects.filter(for_class=a_class)
     context = {
