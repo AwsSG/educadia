@@ -15,10 +15,16 @@
         {% for class in classes %}
         <div class="col-sm-6 col-md-6 col-lg-4">
             <div class="card mb-4 .rounded-lg">
-                <img src="..." class="card-img-top" alt="...">
+                <div class="card-header main-color-1-bg text-light">
+                    {{ class.class_subject }}
+                </div>
                 <div class="card-body">
-                  <h5 class="card-title">{{ class.class_name }}</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <h5 class="card-title">{{ class.class_name }}</h5>
+                    <small>{{ class.class_year }}</small>
+                    <p class="card-text">By: {{ class.added_by }}</p>
+                    <div class="text-right">
+                        <a class="btn btn-sm main-color-2-bg text-light" href="">Join this class</a>
+                    </div>
                 </div>
             </div>
         </div>
