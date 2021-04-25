@@ -20,6 +20,10 @@ class UserAccount(models.Model):
     bio = models.CharField(max_length=1000, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
 
+    class Meta:
+        verbose_name = 'User Account'
+        verbose_name_plural = 'User Accounts'
+
     def __str__(self):
         return str(self.first_names) or ''
 
