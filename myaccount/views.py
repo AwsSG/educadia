@@ -14,6 +14,8 @@ def myaccount(request):
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Profile updated successfully')
+            else:
+                messages.error(request, 'Form incorrect, make sure you fill the required fields correctly')
 
         form = UserAccountForm(instance=account)
 

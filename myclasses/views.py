@@ -23,6 +23,8 @@ def myclasses(request):
                     new_class.added_by = teacher
                     new_class.save()
                     messages.success(request, 'Class added successfully')
+                else:
+                    messages.error(request, 'Form incorrect, make sure you fill the required fields correctly')
             else:
                 form = AllClassesForm()
         else:
@@ -41,10 +43,12 @@ def myclasses(request):
                             new_student.save()
                             messages.success(request, 'You joined class successfully')
                             join_form = ClassRegisterForm()
+                        else:
+                            messages.error(request, 'Form incorrect, make sure you fill the required fields correctly')
                     else:
-                        messages.success(request, 'The join code you entered for the selected class is incorrect')
+                        messages.error(request, 'The join code you entered for the selected class is incorrect')
                 else:
-                    messages.success(request, 'You are already registered for this class')
+                    messages.warning(request, 'You are already registered for this class')
 
         template = 'myclasses/myclasses.html'
         all_classes = AllClasses.objects.filter(added_by=teacher)
@@ -76,6 +80,8 @@ def class_detail(request, class_id):
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Class details updated successfully')
+            else:
+                messages.error(request, 'Form incorrect, make sure you fill the required fields correctly')
 
             form = AllClassesForm(instance=a_class)
         # add material POST handler
@@ -87,6 +93,8 @@ def class_detail(request, class_id):
                 new_material.for_class = a_class
                 new_material.save()
                 messages.success(request, 'Material uploaded successfully')
+            else:
+                messages.error(request, 'Form incorrect, make sure you fill the required fields correctly')
 
             form_upload = AllMaterialsForm()
         else:
@@ -119,6 +127,8 @@ def material_detail(request, material_id):
         if form_upload.is_valid:
             form_upload.save()
             messages.success(request, 'Changes saved successfully')
+        else:
+            messages.error(request, 'Form incorrect, make sure you fill the required fields correctly')
 
     form_upload = AllMaterialsForm(instance=material)
     context = {
