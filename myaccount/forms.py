@@ -5,7 +5,7 @@ from .models import UserAccount
 class UserAccountForm(forms.ModelForm):
     class Meta:
         model = UserAccount
-        fields = ['first_names', 'last_name', 'user_type', 'bio', 'image']
+        fields = ['first_names', 'last_name', 'bio', 'image']
 
     def __init__(self, *args, **kwargs):
         """
@@ -16,7 +16,6 @@ class UserAccountForm(forms.ModelForm):
         placeholders = {
             'first_names': 'Full name',
             'last_name': 'Last name',
-            'user_type': 'User type',
             'bio': 'Short bio/summary',
             'image': 'Upload your image',
         }
