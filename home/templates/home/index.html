@@ -23,9 +23,13 @@
                     <small>{{ class.class_year }}</small>
                     <p class="card-text">By: {{ class.added_by }}</p>
                     <!-- join class button -->
+                    {% if user.is_authenticated %}
+                    {% if user_type == 'student' %}
                     <div class="text-right">
                         <a class="btn btn-sm main-color-2-bg text-light" data-toggle="modal" data-target="#join-this-class">Join class</a>
                     </div>
+                    {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
