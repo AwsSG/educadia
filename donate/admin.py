@@ -1,3 +1,11 @@
 from django.contrib import admin
+from .models import Donate
 
-# Register your models here.
+
+class DonateAdmin(admin.ModelAdmin):
+    fields = ('name', 'amount')
+
+    readonly_fields = ('date',)
+
+
+admin.site.register(Donate, DonateAdmin)
