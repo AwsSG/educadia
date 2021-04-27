@@ -16,7 +16,8 @@ class DonateForm(forms.ModelForm):
         placeholders = {
             'name': 'Your name/your organization name',
             'phone': 'Your phone number',
-            'email': 'Your email address'
+            'email': 'Your email address',
+            'amount': '$',
             }
 
         self.fields['name'].widget.attrs['autofocus'] = True

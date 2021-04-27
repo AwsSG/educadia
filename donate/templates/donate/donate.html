@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col col-md-6 offset-md-3 text-center">
+            <h3 class="mb-3">Donate</h3>
+            <p class="text-muted">Contribute to the development of this project</p>
+            <div class="card card-body">
+                <form action="{% url 'donate' %}" method="POST" id="donate-form">
+                    {% csrf_token %}
+                    <div class="crispy-form-fields">
+                        {% for field in donate_form %}
+                        {{ field | as_crispy_field }}
+                        {% endfor %}
+                    </div>
+                    <fieldset>
+                        <legend class="text-muted">Payment</legend>
+
+                        <!-- stripe card element -->
+                        <div id="card-element"></div>
+
+                        <!-- stripe card errors -->
+                        <div class="text-danger" id="card-errors" role="alert"></div>
+                    </fieldset>
+                    <div class="form-group text-center">
+                        <button type="submit" name="donate_form" class="btn btn-lg main-color-2-bg text-light">
+                            <i class="fas fa-donate"></i>
+                            Pay
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
