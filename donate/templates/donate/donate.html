@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 
 <div class="container">
@@ -15,7 +16,7 @@
                         {% endfor %}
                     </div>
                     <fieldset>
-                        <legend class="text-muted">Payment</legend>
+                        <legend class="text-muted">Card details</legend>
 
                         <!-- stripe card element -->
                         <div id="card-element"></div>
@@ -35,4 +36,10 @@
     </div>
 </div>
 
+{% endblock %}
+{% block postloadjs %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'donate/js/stripe_elements.js' %}"></script>
 {% endblock %}

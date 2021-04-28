@@ -20,6 +20,9 @@
       crossorigin="anonymous"
     ></script>
 
+    <!-- Stripe payment -->
+    <script src="https://js.stripe.com/v3/"></script>
+
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
 
     <title>Educadia</title>
@@ -124,8 +127,12 @@
       crossorigin="anonymous"
     ></script>
     <!-- toast initialization -->
+
+    {% block postloadjs %}
     <script type="text/javascript">
-        $('.toast').toast('show');
+      $('.toast').toast('show');
     </script>
+    {% endblock %}
+
   </body>
 </html>
