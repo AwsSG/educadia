@@ -35,7 +35,7 @@
                     </div>
                     {% if all_classes %}
                     <!-- list of all classes created by that teacher -->
-                    <div class="list-group">
+                    <div class="list-group shadow">
                         {% for class in all_classes %}
                         <a href="{% url 'class_detail' class.id %}" class="list-group-item list-group-item-action">
                           <div class="d-flex w-100 justify-content-between">
@@ -85,7 +85,7 @@
                   <div class="col">
                     {% if joined_classes %}
                     <!-- list of joined classes if any -->
-                    <div class="list-group mb-3">
+                    <div class="list-group mb-3 shadow">
                       {% for class in joined_classes %}
                       <a href="{% url 'class_detail' class.id %}" class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
