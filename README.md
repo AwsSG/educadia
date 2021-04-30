@@ -18,20 +18,21 @@ This is my final project at the Code Institute Full-Stack Web Developer course. 
 * [Future implementations](#future-implementations)
 * [Technologies](#technologies)
 * [Challenges](#Challenges)
-* [Deployment](#deployment)
+* [Deployment](#Deployment)
+* [Testing](#Testing)
 * [Credits](#credits)
 
 ## Live
 
-The live educadia project is hosted on Heroku. you can access it [here](https://fsd-project.herokuapp.com/).
+The live educadia project is hosted on Heroku. you can access it [here](https://educadia-test.herokuapp.com/).
 
 The following accounts are available for testing:
 
 * teacher1 (for a teacher user type)
-* newuser (for a student user type)
+* student1 (for a student user type)
 
 
-The password is waterway for both accounts.
+The password is learnonline for both accounts.
 
 ## User stories
 
@@ -151,6 +152,21 @@ The navbar is simple. The colours are light but separated from each other. There
 
 ## Wireframes
 
+* The wireframe was created to show an estimated look and feel of the website on mobile, tablet, and pc.
+
+  * You can see the initial look of the pages as below:
+    * Classes/home page:
+        ![Classes/home](https://gist.github.com/AwsSG/7791b9d095ae5d7efb8d290f86f5e41d#gistcomment-3725920)
+    * Login page:
+        ![Login](https://gist.github.com/AwsSG/7791b9d095ae5d7efb8d290f86f5e41d#gistcomment-3725919)
+    * Registration page:
+        ![Registration](https://gist.github.com/AwsSG/7791b9d095ae5d7efb8d290f86f5e41d#gistcomment-3725921)
+    * Student classes page:
+        ![Student](https://gist.github.com/AwsSG/7791b9d095ae5d7efb8d290f86f5e41d#gistcomment-3725922)
+    * Teacher classes page:
+        ![Teacher](https://gist.github.com/AwsSG/7791b9d095ae5d7efb8d290f86f5e41d#gistcomment-3725923)
+
+
 
 ## Features
 
@@ -220,14 +236,180 @@ I faced several challenges during the project, including the tight deadline and 
 
 * Stripe website change. Therefore, I had to rely on code snippets from the CI BA project to move forward with setting up stripe. Plus, in this particular school, the donations will be handeled by the finance department which will have no access to this site. The solution to this was to give the financial department the backend of stripe to handle the payments receipts.
 
-### Hosting, deployment, and testing
+### Deployment
+
+#### Running Code Locally
+
+
+1. Follow this link to my [Repository on Github](https://github.com/AwsSG/educadia) and open it.
+
+2. Click `Clone or Download`.
+
+3. In the Clone with HTTPs section, click the `copy` icon.
+
+4. In your local IDE open Git Bash.
+
+5. Change the current working directory to where you want the cloned directory to be made.
+
+6. Type `git clone`, and then paste the URL you copied earlier.
+
+7. Press enter and your local clone will be ready.
+
+8. Create and start a new environment:  
+python -m .venv venv  
+source env/bin/activate
+
+9. Install the project dependencies:  
+pip install -r requirements.txt
+
+10. Create a new file, called `env.py` and add your environment variables:
+
+import os  
+os.environ.setdefault("STRIPE_PUBLISHABLE", "secret key here")
+os.environ.setdefault("STRIPE_SECRET", "secret key here")
+os.environ.setdefault("DATABASE_URL", "secret key here")
+os.environ.setdefault("SECRET_KEY", "secret key here")
+os.environ.setdefault("AWS_ACCESS_KEY_ID", "secret key here")
+os.environ.setdefault("AWS_SECRET_ACCESS_KEY", "secret key here")
+
+11. Go to `settings.py` file and add your environment variables.
+
+12. Add `env.py` to .gitignore file
+
+13. Go to terminal and run the following: `python3 manage.py makemigrations`, then `python3 manage.py migrate` to migrate all existing migrations to postgres database.
+
+14. Create a superuser: `python3 manage.py createsuperuser`
+
+15. Run it with the following command:  
+`python manage.py runserver`
+
+16. Open `localhost:8000` on your browser
+
+17.  Add `/admin` to the end of the url address and login with your superuser account and create new products.
+
+#### Deployment to Heroku
+
+The following steps were taken in order to deploy this site to Heroku:
+
+1. Created a new app in `Heroku` with a unique name, chose my region
+
+2. Went to `Resources`, within Add-ons searched `Heroku Postgres`, chose Hobby Dev - Free version, then clicked `Provision` button.
+
+3. In `Settings` clicked on `Reveal Config Vars` button, and copied the value of `DATABASE_URL`
+
+4. Returned to terminal window and run `sudo pip3 install dj_database_url`
+
+5. Also run `sudo pip3 install psycopg2`. Created a requirements.txt file using the terminal command `pip3 freeze > requirements.txt`
+
+6. Went to `settings.py` and added `import dj_database_url` and updated `DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}` also updated `env.py` with `os.environ.setdefault("DATABASE_URL", "postgres://postgres key - copied earlier from Heroku")`
+
+7. I run `python3 manage.py makemigrations`, then `python3 manage.py migrate` to migrate all existing migrations to postgres database.
+
+8. I created a superuser: `python3 manage.py createsuperuser`
+
+9. Logged in to `Amazon AWS`, went to `S3` and created a new `S3` bucket.
+
+10. Returned to terminal window and run `sudo pip3 install django-storages` and `sudo pip3 install boto3`. Went to `settings.py` and added `storages` to `INSTALLED_APPS`.
+
+11. Also in `settings.py` the following lines are added:
+
+AWS_STORAGE_BUCKET_NAME = 'educadia-test'  
+AWS_S3_REGION_NAME = 'eu-west-1'  
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")  
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")  
+
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+12. Updated `env.py` with `AWS` keys (these keys are from `S3`).
+
+13. Created `custom_storages.py` at the top level:
+
+from django.conf import settings  
+from storages.backends.s3boto3 import S3Boto3Storage
+
+
+class StaticStorage(S3Boto3Storage):  
+&nbsp;&nbsp;&nbsp;location = settings.STATICFILES_LOCATION
+
+class MediaStorage(S3Boto3Storage):  
+&nbsp;&nbsp;&nbsp;location = settings.MEDIAFILES_LOCATION
+
+14. Went to `settings.py` and added:
+
+STATICFILES_LOCATION = 'static'  
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+
+MEDIAFILES_LOCATION = 'media'  
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
+15. Returned to terminal window and run `python3 manage.py collectstatic`
+
+16. Returned to `Heroku`. In `Settings` clicked on `Reveal Config Vars` button, and added all the following config vars from `env.py`:
+
+| Key         | Value | 
+|:-------------:| :----: | 
+|  AWS_ACCESS_KEY_ID | secret key here  |
+|  AWS_SECRET_ACCESS_KEY | secret key here |
+|  DATABASE_URL | secret key here |
+|  DISABLE_COLLECTSTATIC| 1 |
+|  SECRET_KEY | secret key here |
+|  STRIPE_PUBLISHABLE | secret key here |
+|  STRIPE_SECRET| secret key here |
+
+17. Clicked to `Deploy`, then `GitHub`, searched for my repository and clicked to `Connect` button.
+
+18. Returned to terminal window and run `sudo pip3 install gunicorn` and added to `requirements.txt`
+
+19. Created a `Procfile` using the following command: `echo web: gunicorn ms4.wsgi:application`
+
+20. Ran `git add .`, `git commit -m "my commit message"` and `git push` commands to push all changes to my GitHub repository.
+
+20. Returned to `Heroku` and hit `Deploy Branch`
+
+21. Once the build is complete, click on `Open app`
+
+22. Went to `settings.py` and added `educadia-test.herokuapp.com` to `ALLOWED_HOSTS`
+
+23. Ran `git add .`, `git commit -m "my commit message"` and `git push` commands to push all changes to my GitHub repository.
+
+24. Returned to `Heroku` and hit `Deploy Branch` again.
+
+### Testing
+
+* During the development of the project I carried out testing, I used Google Chrome Developer Tools consistently to check each changes.
+
+* I have tested the site on Google Chrome, Safari and Firefox. And on the following mobile devices: Samsung note20, iPhone11 and iPhone6. And on iPad tablet.
+
+* Testing was done to ensure that all available (clickable) button are working properly and the links are liked correctly.
+
+* A sample of teachers (3 teachers) and students (5 students) from the school were asked to review the site and documentation to point out any bugs and/or user experience issues. the following was found:
+
+* Tested the site using Chrome Lighthouse (for both desktop and mobile) and below are the scores:
+  * Mobile
+    * Performance: 87
+    * Accessibility: 100
+    * Best Practices: 87
+    * SEO: 90
+  * Desktop
+    * Performance: 91
+    * Accessibility: 100
+    * Best Practices: 87
+    * SEO: 92
+
+#### Known issues found by users
+
+* When a user logges in he/she is directed to the my account page (originally to fill the user details). However, users prefer if it only directed them to my account when loggin in for the first time.
+
+* After paying a donation, the is no redirection to any other page.
+
+* Teachers want the class join code to be visable on home and my classes views.
 
 
 ## Credits
 
 ### Content
 
-The project was inspired by the android version of the [seesaw](https://web.seesaw.me/). Every image was downloaded from [unsplash.com](https://unsplash.com/). Google search was used to research the problems and I got most of the solutions from [stackoverflow.com](https://stackoverflow.com/).
+The project was inspired by websites like google classroom and by the need of the school for a custom online solution.
 
 ### Acknowledgements
 
