@@ -3,9 +3,9 @@ from .models import Donate
 
 
 class DonateAdmin(admin.ModelAdmin):
-    fields = ('name', 'amount')
+    list_display = ('name', 'email', 'phone', 'amount', 'date')
 
-    readonly_fields = ('date',)
+    readonly_fields = ('date', 'amount')
 
 
 admin.site.register(Donate, DonateAdmin)
