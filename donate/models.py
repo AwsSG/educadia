@@ -8,5 +8,9 @@ class Donate(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=25)
     date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = 'Donation'
+        verbose_name_plural = 'Donations'
+
     def __str__(self):
         return self.name
