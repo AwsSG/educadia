@@ -13,10 +13,13 @@ class UserAccount(models.Model):
     """
     The main user model containing information for all user types
     """
-    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, null=True, blank=True, on_delete=models.CASCADE)
     first_names = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
-    user_type = models.CharField(max_length=100, null=True, blank=True, default='student', choices=USER_TYPE_CHOICES)
+    user_type = models.CharField(
+        max_length=100, null=True, blank=True, default='student',
+        choices=USER_TYPE_CHOICES)
     bio = models.CharField(max_length=1000, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
 

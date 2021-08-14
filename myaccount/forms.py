@@ -23,7 +23,8 @@ class UserAccountForm(forms.ModelForm):
         self.fields['bio'].widget = forms.Textarea()
         self.fields['first_names'].widget.attrs['autofocus'] = True
         for field in self.fields:
-            placeholder = placeholders[field]
-            self.fields[field].widget.attrs['placeholder'] = placeholder
+            if field != 'image':
+                placeholder = placeholders[field]
+                self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'form-control f-input'
             self.fields[field].label = False

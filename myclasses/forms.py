@@ -33,7 +33,6 @@ class AllClassesForm(forms.ModelForm):
             'class_year': 'Year',
         }
 
-        self.fields['class_name'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if self.fields[field].required:
                 placeholder = f'{placeholders[field]} *'
@@ -65,11 +64,12 @@ class AllMaterialsForm(forms.ModelForm):
         self.fields['desc'].widget = forms.Textarea()
         self.fields['name'].widget.attrs['autofocus'] = True
         for field in self.fields:
-            if self.fields[field].required:
-                placeholder = f'{placeholders[field]} *'
-            else:
-                placeholder = placeholders[field]
-            self.fields[field].widget.attrs['placeholder'] = placeholder
+            if field != 'doc':
+                if self.fields[field].required:
+                    placeholder = f'{placeholders[field]} *'
+                else:
+                    placeholder = placeholders[field]
+                self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'form-control f-input'
             self.fields[field].label = False
 
@@ -89,7 +89,8 @@ class ClassRegisterForm(forms.ModelForm):
         placeholder2 = 'Select class to join'
 
         self.fields['registered_for'].widget.attrs['autofocus'] = True
-        self.fields['join_code'].widget.attrs['placeholder'] = f'{placeholder1} *'
+        self.fields['join_code'].widget.attrs[
+            'placeholder'] = f'{placeholder1} *'
         self.fields['registered_for'].empty_label = f'{placeholder2} *'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control f-input'

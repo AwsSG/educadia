@@ -10,12 +10,14 @@ def myaccount(request):
     if request.user.is_authenticated:
         account = get_object_or_404(UserAccount, user=request.user)
         if request.method == 'POST':
-            form = UserAccountForm(request.POST, request.FILES, instance=account)
+            form = UserAccountForm(
+                request.POST, request.FILES, instance=account)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Profile updated successfully')
             else:
-                messages.error(request, 'Form incorrect, make sure you fill the required fields correctly')
+                messages.error(request, 'Form incorrect, make sure you fill \
+                the required fields correctly')
 
         form = UserAccountForm(instance=account)
 

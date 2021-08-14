@@ -62,7 +62,7 @@
                       </button>
                     </p>
                     <div class="collapse" id="collapse-join-class">
-                      <form method="POST" action="">
+                      <form method="POST" action="{% url 'myclasses' %}">
                           <div class="col-md-6">
                             {% csrf_token %}
                             <div class="crispy-form-fields">

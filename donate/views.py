@@ -17,13 +17,15 @@ def donate(request):
             stripe_total = round(float(donated_amount) * 100)
             donate_form.save()
             intent = stripe.PaymentIntent.create(
-            amount=stripe_total,
-            currency=settings.STRIPE_CURRENCY,
+                amount=stripe_total,
+                currency=settings.STRIPE_CURRENCY,
             )
             messages.success(request, 'Thank you for your donation!')
             return redirect(reverse('home'))
         else:
-            messages.error(request, 'Form incorrect, make sure you fill the required fields correctly')
+            messages.error(
+                request, 'Form incorrect, make sure you fill the \
+                required fields correctly')
     else:
         donate_form = DonateForm()
         stripe.api_key = stripe_secret_key
