@@ -256,21 +256,21 @@ I faced several challenges during the project, including the tight deadline and 
 7. Press enter and your local clone will be ready.
 
 8. Create and start a new environment:  
-python -m .venv venv  
-source env/bin/activate
+`python -m .venv venv`  
+`source env/bin/activate`
 
 9. Install the project dependencies:  
 pip install -r requirements.txt
 
 10. Create a new file, called `env.py` and add your environment variables:
 
-import os  
-os.environ.setdefault("STRIPE_PUBLISHABLE", "secret key here")
-os.environ.setdefault("STRIPE_SECRET", "secret key here")
-os.environ.setdefault("DATABASE_URL", "secret key here")
-os.environ.setdefault("SECRET_KEY", "secret key here")
-os.environ.setdefault("AWS_ACCESS_KEY_ID", "secret key here")
-os.environ.setdefault("AWS_SECRET_ACCESS_KEY", "secret key here")
+`import os`  
+`os.environ.setdefault("STRIPE_PUBLISHABLE", "secret key here")`\
+`os.environ.setdefault("STRIPE_SECRET", "secret key here")`\
+`os.environ.setdefault("DATABASE_URL", "secret key here")`\
+`os.environ.setdefault("SECRET_KEY", "secret key here")`\
+`os.environ.setdefault("AWS_ACCESS_KEY_ID", "secret key here")`\
+`os.environ.setdefault("AWS_SECRET_ACCESS_KEY", "secret key here")`
 
 11. Go to `settings.py` file and add your environment variables.
 
@@ -313,34 +313,33 @@ The following steps were taken in order to deploy this site to Heroku:
 
 11. Also in `settings.py` the following lines are added:
 
-AWS_STORAGE_BUCKET_NAME = 'educadia-test'  
-AWS_S3_REGION_NAME = 'eu-west-1'  
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")  
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")  
-
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+`AWS_STORAGE_BUCKET_NAME = 'educadia-test'`\
+`AWS_S3_REGION_NAME = 'eu-west-1'`\
+`AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")`  
+`AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")`  
+`AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME`
 
 12. Updated `env.py` with `AWS` keys (these keys are from `S3`).
 
 13. Created `custom_storages.py` at the top level:
 
-from django.conf import settings  
-from storages.backends.s3boto3 import S3Boto3Storage
+`from django.conf import settings`  
+`from storages.backends.s3boto3 import S3Boto3Storage`
 
 
-class StaticStorage(S3Boto3Storage):  
-&nbsp;&nbsp;&nbsp;location = settings.STATICFILES_LOCATION
+`class StaticStorage(S3Boto3Storage):`  
+`&nbsp;&nbsp;&nbsp;location = settings.STATICFILES_LOCATION`
 
-class MediaStorage(S3Boto3Storage):  
-&nbsp;&nbsp;&nbsp;location = settings.MEDIAFILES_LOCATION
+`class MediaStorage(S3Boto3Storage):`  
+`&nbsp;&nbsp;&nbsp;location = settings.MEDIAFILES_LOCATION`
 
 14. Went to `settings.py` and added:
 
-STATICFILES_LOCATION = 'static'  
-STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+`STATICFILES_LOCATION = 'static'`  
+`STATICFILES_STORAGE = 'custom_storages.StaticStorage'`
 
-MEDIAFILES_LOCATION = 'media'  
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+`MEDIAFILES_LOCATION = 'media'`  
+`DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'`
 
 15. Returned to terminal window and run `python3 manage.py collectstatic`
 
@@ -383,6 +382,36 @@ DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 * Testing was done to ensure that all available (clickable) button are working properly and the links are liked correctly.
 
 * A sample of teachers (3 teachers) and students (5 students) from the school were asked to review the site and documentation to point out any bugs and/or user experience issues. the following was found:
+
+* Below is the detailed manual (logical) testing of all elements and functionality on every page:
+
+| Action         | Expected result | Outcome | 
+|:------------- | :---- | :----: | 
+|  open landing/home page | home page loads with available classes cards and basic navigation  | SUCCESS |
+|  attemt to sign up by navigating to sign up | sign up page loads and accepts user inputs / user gets email for confirmation  | SUCCESS |
+|  attemt to login by navigating to login | login page loads and accepts user input / user is logged in only if both username and password are correct  | SUCCESS  |
+|  attemt to signup / login from the inline link on login / sign up page | user can sign up / log in successfully exactly like the previous two tests  | SUCCESS  |
+|  attemt to recover passowrd by clicking on forgot password | user can recover password by entering the account associated email  | SUCCESS  |
+|  attemt to navigate as a logged in user | user have access to my classes & profile & log out in the navigation  | SUCCESS  |
+|  attemt to fill profile details | user input is accepted in the profile page and the view reflects the changes after save | SUCCESS  |
+|  attemt to update profile details | user input is accepted in the profile page and the view reflects the changes after save | SUCCESS  |
+|  attemt to log in as a teacher | user can add classes by navigating to myclasses  | SUCCESS  |
+|  attemt to add a class as a teacher | user can add classes successfully and the added class show up on home page  | SUCCESS  |
+|  attemt to edit a class as a teacher | user can edit only a class that was added by the user successfully and the edited class details reflect on myclasses & home views  | SUCCESS  |
+|  attemt to delete a class as a teacher | user can delete only a class that was added by the user successfully and the deleted class no longer show on myclasses & home views  | SUCCESS  |
+|  attemt to add material to a class as a teacher | user can add material and attach a file to a class that was added by the user successfully and the added materials show on class view  | SUCCESS  |
+|  attemt to edit material to a class as a teacher | user can edit material and attach a new file to a class that was added by the user successfully and the updated materials show on class view  | SUCCESS  |
+|  attemt to delete material from a class as a teacher | user can delete material from a class nd the deleted material no longer show on class view  | SUCCESS  |
+|  attemt to log in as a student | user can join classes  | SUCCESS  |
+|  attemt to join a class as a student | user can join a class with the correct join code and the joined class show on my classes view  | SUCCESS  |
+|  attemt to join same class again as a student | a message show up iforming user that this class is already joined / prevent duplicate join classes | SUCCESS  |
+|  attemt to view materials in a class as a student | user can view materials in classes | SUCCESS  |
+|  attemt to download a material as a student | user can download the selected material by clicking the download button | SUCCESS |
+|  attemt to join a class from home page as a student | user redirected to my classes view where the user can join a class | SUCCESS |
+|  attemt to join a class from home page as a student | user redirected to my classes view where the user can join a class | SUCCESS |
+|  attemt to unjoin a class | cannot be done by normal user / only admin user can perform this action | SUCCESS |
+|  attemt to donate any amount with valid card number | user input is accepted when clicking pay if card details are valid | SUCCESS |
+|  attemt to donate any amount with invalid card number | user input is not accepted and a message show underneath the card number field to inform user of invalid card number | SUCCESS |
 
 * Tested the site using Chrome Lighthouse (for both desktop and mobile) and below are the scores:
   * Mobile
