@@ -162,15 +162,15 @@ The navbar is simple. The colours are light but separated from each other. There
 
   * You can see the initial look of the pages as below:
     * Classes/home page:
-        ![Classes/home](https://gist.github.com/AwsSG/7791b9d095ae5d7efb8d290f86f5e41d#gistcomment-3725920)
+        ![Classes/home](https://user-images.githubusercontent.com/63303440/116648121-30811b00-a974-11eb-8f98-e90566d005b7.png)
     * Login page:
-        ![Login](https://gist.github.com/AwsSG/7791b9d095ae5d7efb8d290f86f5e41d#gistcomment-3725919)
+        ![Login](https://user-images.githubusercontent.com/63303440/116648137-3676fc00-a974-11eb-8d2f-63077a79c625.png)
     * Registration page:
-        ![Registration](https://gist.github.com/AwsSG/7791b9d095ae5d7efb8d290f86f5e41d#gistcomment-3725921)
+        ![Registration](https://user-images.githubusercontent.com/63303440/116648145-3ecf3700-a974-11eb-9464-7e9f958e1f8d.png)
     * Student classes page:
-        ![Student](https://gist.github.com/AwsSG/7791b9d095ae5d7efb8d290f86f5e41d#gistcomment-3725922)
+        ![Student](https://user-images.githubusercontent.com/63303440/116648150-4262be00-a974-11eb-896d-11615cbf21ec.png)
     * Teacher classes page:
-        ![Teacher](https://gist.github.com/AwsSG/7791b9d095ae5d7efb8d290f86f5e41d#gistcomment-3725923)
+        ![Teacher](https://user-images.githubusercontent.com/63303440/116648161-455dae80-a974-11eb-8e33-2efccf9e05f9.png)
 
 
 
