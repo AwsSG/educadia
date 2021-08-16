@@ -131,12 +131,18 @@ The structure of the database as follows:
   * registered_for = ForeignKey(...) with the AllClasses moddel
   * join_code = CharField(...)
 
+* The Donate model for donate application, to store donation information:
+  * name = CharField(...)
+  * phone = CharField(...)
+  * email = EmailField(...)
+  * amount = DecimalField(...)
+  * date = DateTimeField(...)
 
 ### Skeleton plane
 
 > How is the information implemented, and how will the user navigate through the features?
 
-For the landing page, the navigation bar is is self explanatory to guide the user in the right direction. The mobile view has a simple navigation bar that slides down on click. Only the login, the registration, resources view is available when the user is not logged in. The my classes, my account, and logout becomes visible on the navigation bar after the successful authentication. The views are mostly one level so there was no need to include a button to take the user back a step, since clicking on the navigation links will do similar action.
+For the landing page, the navigation bar is self explanatory to guide the user in the right direction. The mobile view has a simple navigation bar that slides down on click. Only the login, the registration, resources view is available when the user is not logged in. The my classes, my account, and logout becomes visible on the navigation bar after the successful authentication. The views are mostly one level so there was no need to include a button to take the user back a step, since clicking on the navigation links will do similar action.
 
 ### Surface plane
 
@@ -328,10 +334,10 @@ The following steps were taken in order to deploy this site to Heroku:
 
 
 `class StaticStorage(S3Boto3Storage):`  
-`&nbsp;&nbsp;&nbsp;location = settings.STATICFILES_LOCATION`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`location = settings.STATICFILES_LOCATION`
 
 `class MediaStorage(S3Boto3Storage):`  
-`&nbsp;&nbsp;&nbsp;location = settings.MEDIAFILES_LOCATION`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`location = settings.MEDIAFILES_LOCATION`
 
 14. Went to `settings.py` and added:
 
@@ -383,7 +389,7 @@ The following steps were taken in order to deploy this site to Heroku:
 
 * A sample of teachers (3 teachers) and students (5 students) from the school were asked to review the site and documentation to point out any bugs and/or user experience issues. the following was found:
 
-* Below is the detailed manual (logical) testing of all elements and functionality on every page:
+* The website was also tested manually thoroughly. The desktop and the mobile modes were both checked for any errors. Manual (logical) testing of all elements and functionality on every page:
 
 | Action         | Expected result | Outcome | 
 |:------------- | :---- | :----: | 
@@ -429,9 +435,7 @@ The following steps were taken in order to deploy this site to Heroku:
 
 * When a user logges in he/she is directed to the my account page (originally to fill the user details). However, users prefer if it only directed them to my account when loggin in for the first time.
 
-* After paying a donation, the is no redirection to any other page.
-
-* Teachers want the class join code to be visable on home and my classes views.
+* Teachers want the class join code to be visable on home and my classes views, which is not visable now.
 
 
 ## Credits
