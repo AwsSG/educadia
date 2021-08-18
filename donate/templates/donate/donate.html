@@ -8,6 +8,7 @@
             <h3 class="mb-3">Donate</h3>
             <p class="text-muted">Contribute to the development of this project</p>
             <div class="card card-body">
+                <!-- Donation form -->
                 <form action="{% url 'donate' %}" method="POST" id="donate-form">
                     {% csrf_token %}
                     <div class="crispy-form-fields">

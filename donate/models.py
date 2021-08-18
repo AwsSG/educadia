@@ -2,6 +2,9 @@ from django.db import models
 
 
 class Donate(models.Model):
+    """
+    donation model containing information about donations
+    """
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     email = models.EmailField(max_length=254)

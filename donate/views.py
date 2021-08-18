@@ -6,6 +6,9 @@ import stripe
 
 
 def donate(request):
+    """
+    Donation view to handle payments
+    """
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     stripe_total = 1 * 100
@@ -37,9 +40,6 @@ def donate(request):
         if not stripe_public_key:
             messages.warning(request, 'Stripe public key is missing. \
                 Did you forget to set it in your environment?')
-
-        # print(donated_amount)
-        # print(intent)
 
     context = {
         'donate_form': donate_form,
